@@ -1,0 +1,8 @@
+name: Treeview
+description: A tree-like browser widget using the Girder REST API
+version: 0.1.0
+npm:
+    dependencies:
+        "jquery-ui": ^1.12.1
+        "jquery.fancytree": ^2.19.0
+        "jquery.hotkeys": ^0.1.0
