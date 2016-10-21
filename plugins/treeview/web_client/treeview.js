@@ -27,7 +27,6 @@ $.fn.girderTreeview = function (options) {
     'use strict';
 
     options = options || {};
-    var girder = window.girder || {};
     var tree;
     var $el;
 
@@ -143,7 +142,7 @@ $.fn.girderTreeview = function (options) {
         });
     };
 
-    var glyph_opts = {
+    var glyphOpts = {
         map: $.extend({
             doc: 'glyphicon glyphicon-file',
             docOpen: 'glyphicon glyphicon-file',
@@ -162,7 +161,7 @@ $.fn.girderTreeview = function (options) {
         }, options.glyph)
     };
 
-    var dnd_opts = {
+    var dndOpts = {
         autoExpandMS: 500,
         draggable: {
             revert: 'invalid'
@@ -200,12 +199,12 @@ $.fn.girderTreeview = function (options) {
         }
     };
 
-    var persist_opts = {
+    var persistOpts = {
         expandLazy: true,
         store: 'local'
     };
 
-    var edit_opts = {
+    var editOpts = {
         adjustWidthOfs: 10,
         beforeEdit: writeable,
         save: function (event, data) {
@@ -232,6 +231,7 @@ $.fn.girderTreeview = function (options) {
     };
 
     // methods to recreate a deleted model for undo functionality
+    /*
     var create = {
         folder: function (model) {
             return restRequest({
@@ -257,10 +257,10 @@ $.fn.girderTreeview = function (options) {
             });
         }
     };
+    */
 
     var move = {
         folder: function (model, oldParent, newParent) {
-
             return restRequest({
                 url: api + '/folder/' + model._id,
                 method: 'PUT',
@@ -283,7 +283,6 @@ $.fn.girderTreeview = function (options) {
             });
         },
         item: function (model, oldParent, newParent) {
-
             return restRequest({
                 url: api + '/item/' + model._id,
                 method: 'PUT',
@@ -517,8 +516,7 @@ $.fn.girderTreeview = function (options) {
         var promises = [];
         var parent = data.node.data.parent;
 
-        promises = data.node.data.rest.map(function (rest) {
-
+        promises = data.node.data.rest.map((rest) => {
             rest.data = rest.data || {};
             rest.data.limit = pageSize;
             return restRequest(rest)
@@ -653,10 +651,10 @@ $.fn.girderTreeview = function (options) {
             source: source,
             lazyLoad: lazyLoad,
             postProcess: postProcess,
-            glyph: glyph_opts,
-            dnd: dnd_opts,
-            persist: persist_opts,
-            edit: edit_opts,
+            glyph: glyphOpts,
+            dnd: dndOpts,
+            persist: persistOpts,
+            edit: editOpts,
             focus: function (evt, data) {
                 $el.trigger('g-focus', data.node);
             },
@@ -664,7 +662,5 @@ $.fn.girderTreeview = function (options) {
             clickPaging: clickPaging,
             hotkeys: hotkeys
         }).fancytree('getTree');
-
-        window.tree = tree;
     });
 };
